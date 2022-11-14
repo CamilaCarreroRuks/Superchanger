@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class ProofTurnController implements ActionListener{
     
     private home viewHome = home.getInstance();
-    private viewProofTurn view = new viewProofTurn(viewHome, true);
+    public viewProofTurn view = new viewProofTurn(viewHome, true);
     private DiaryModel model;
     private DiaryDAO dao;
    
@@ -35,6 +35,8 @@ public class ProofTurnController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (e.getSource() == view.btnPrint){
+            view.setVisible(false);
+        }
     }
 }

@@ -1,18 +1,35 @@
 package Models;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Camila Carrero
  */
-public class ServiceModel {
+@Entity
+@Table (name = "services")
+public class ServiceModel implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
+    @Column (length = 10)
     private int id_client;
+    @Column (length = 6)
     private Date date;
-    private Array activities;
-    private Array supplies;
+    @Column (length = 10)
+    private int idActivities;
+    @Column (length = 10)
+    private int idSupplies;
 
     private static ServiceModel service = null;
        
@@ -26,11 +43,11 @@ public class ServiceModel {
         return service;
     };
     
-    public ServiceModel(int id_client, Date date, Array activities, Array supplies) {
+    public ServiceModel(int id_client, Date date, int idActivities, int idSupplies) {
         this.id_client = id_client;
         this.date = date;
-        this.activities = activities;
-        this.supplies = supplies;
+        this.idActivities = idActivities;
+        this.idSupplies = idSupplies;
     }
 
     public int getId() {
@@ -57,19 +74,19 @@ public class ServiceModel {
         this.date = date;
     }
 
-    public Array getActivities() {
-        return activities;
+    public int getIdActivities() {
+        return idActivities;
     }
 
-    public void setActivities(Array activities) {
-        this.activities = activities;
+    public void setIdActivities(int idActivities) {
+        this.idActivities = idActivities;
     }
 
-    public Array getSupplies() {
-        return supplies;
+    public int getIdSupplies() {
+        return idSupplies;
     }
 
-    public void setSupplies(Array supplies) {
-        this.supplies = supplies;
+    public void setIdSupplies(int idSupplies) {
+        this.idSupplies = idSupplies;
     }    
 }

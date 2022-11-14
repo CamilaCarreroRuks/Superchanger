@@ -1,6 +1,8 @@
 package Models.Interfaces;
 
+import Models.DAO.exceptions.NonexistentEntityException;
 import Models.DiaryModel;
+import java.util.List;
 
 /**
  *
@@ -8,10 +10,9 @@ import Models.DiaryModel;
  */
 public interface DiaryInterface {
     
-    public boolean addDiary(DiaryModel diary);
-    public DiaryModel[] getAllDiary();
-    public DiaryModel getDiary(int id);
-    public boolean updateDiary(DiaryModel diary);
-    public boolean deleteDiary(DiaryModel diary);
-    public boolean existsDiary(DiaryModel diary);
+    public void create(DiaryModel diary);
+    public  List<DiaryModel> findDiaryModelEntities();
+    public DiaryModel findDiaryModel(int id);
+    public void edit(DiaryModel diary) throws NonexistentEntityException, Exception;
+    public void destroy(int id) throws NonexistentEntityException;
 }

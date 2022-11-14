@@ -1,6 +1,8 @@
 package Models.Interfaces;
 
+import Models.DAO.exceptions.NonexistentEntityException;
 import Models.ReportModel;
+import java.util.List;
 
 /**
  *
@@ -8,10 +10,9 @@ import Models.ReportModel;
  */
 public interface ReportInterface {
     
-    public boolean addReport(ReportModel report);
-    public ReportModel[] getAllReport();
-    public ReportModel getReport(int id);
-    public boolean updateReport(ReportModel report);
-    public boolean deleteReport(ReportModel report);
-    public boolean existsReport(ReportModel report);
+    public void create(ReportModel report);
+    public List<ReportModel> findReportModelEntities();
+    public ReportModel findReportModel(int id);
+    public void edit(ReportModel report) throws NonexistentEntityException, Exception;
+    public void destroy(int id) throws NonexistentEntityException;
 }

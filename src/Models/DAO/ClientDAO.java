@@ -1,109 +1,158 @@
 package Models.DAO;
 
 import Config.DataBaseQuery;
+import Models.DAO.exceptions.NonexistentEntityException;
 import Models.ClientModel;
 import Models.Interfaces.ClientInterface;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 /**
  *
  * @author Camila Carrero
  */
-public class ClientDAO implements ClientInterface{
+@SuppressWarnings("serial")
+public class ClientDAO implements Serializable, ClientInterface{
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SuperchargerPU");;
     
-    @Override
-    public boolean addClient(ClientModel client) {
-        String sql = "INSERT INTO cliente (name, surname, dni) "
-                + "VALUES '" + client.getName() + "', '"+ client.getSurname() +"', '" + client.getIdentification()+ "' ";
-        boolean result = false;
-        try {
-            DataBaseQuery consult = new DataBaseQuery();
-            result = consult.InsertData(sql);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de registro \n" + e);
-        }
-        return result;
+    public ClientDAO() {
+
     }
     
-    @Override
-    public ClientModel[] getAllClients() {
-        String sql = "SELECT * FROM client";
-        ClientModel client = null;
-        ClientModel[] listClients = null;
+    public ClientDAO(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+    
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public void create(ClientModel clientModel) {
+        EntityManager em = null;
         try {
-            DataBaseQuery consulta = new DataBaseQuery();
-            ResultSet resultSet = consulta.ConsultData(sql);
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int count = 0;
-            while (resultSet.next()) {              
-               client = new ClientModel(resultSet.getInt(0), resultSet.getString(1), resultSet.getString(2));
-               listClients[count] = client;
-               count++;
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(clientModel);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error \n" + e);
         }
-        return listClients;  
     }
 
-    @Override
-    public ClientModel getClient(int id) {
-        String sql = "SELECT * FROM client WHERE idClient = '"+id+"'";
-        ClientModel client = null;
-         try {
-             DataBaseQuery consulta = new DataBaseQuery();
-             ResultSet resultSet = consulta.ConsultData(sql);
-             client = new ClientModel(resultSet.getInt(0), resultSet.getString(1), resultSet.getString(2));
-         } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error \n" + e);
-         }
-         return client;  
-    }
-
-    @Override
-    public boolean updateClient(ClientModel client) {
-        String sql = "UPDATE cliente SET dni= '" + client.getIdentification()+ "'"
-                + "where idCliente= '" + client.getId()+ "';";
-        boolean result = true;
+    public void edit(ClientModel clientModel) throws NonexistentEntityException, Exception {
+        EntityManager em = null;
         try {
-            DataBaseQuery consulta = new DataBaseQuery();
-            result = consulta.UpdateData(sql);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de modificación \n" + e);
+            em = getEntityManager();
+            em.getTransaction().begin();
+            clientModel = em.merge(clientModel);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            String msg = ex.getLocalizedMessage();
+            if (msg == null || msg.length() == 0) {
+                int id = clientModel.getId();
+                if (findClientModel(id) == null) {
+                    throw new NonexistentEntityException("The clientModel with id " + id + " no longer exists.");
+                }
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
-        return result;
     }
 
-    @Override
-    public boolean deleteClient(ClientModel client) {
-        String sql = "DELETE FROM cliente WHERE dni='" + client.getIdentification()+ "'";
-        boolean result = true;
+    public void destroy(int id) throws NonexistentEntityException {
+        EntityManager em = null;
         try {
-            DataBaseQuery consulta = new DataBaseQuery();
-            result = consulta.DeleteData(sql);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en la eliminación \n" + e);
-
+            em = getEntityManager();
+            em.getTransaction().begin();
+            ClientModel clientModel;
+            try {
+                clientModel = em.getReference(ClientModel.class, id);
+                clientModel.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The clientModel with id " + id + " no longer exists.", enfe);
+            }
+            em.remove(clientModel);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
-        return result;
     }
 
-    @Override
-    public boolean existsClient(ClientModel client) {
-        boolean result = false;
-        String sql = "SELECT dni FROM cliente WHERE dni='" + client.getIdentification()+ "'";
+    public List<ClientModel> findClientModelEntities() {
+        return findClientModelEntities(true, -1, -1);
+    }
+
+    public List<ClientModel> findClientModelEntities(int maxResults, int firstResult) {
+        return findClientModelEntities(false, maxResults, firstResult);
+    }
+
+    private List<ClientModel> findClientModelEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(ClientModel.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public ClientModel findClientModel(int id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(ClientModel.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getClientModelCount() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<ClientModel> rt = cq.from(ClientModel.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+    
+    public ClientModel existsClient(ClientModel client) {
+        String sql = "SELECT * FROM clients WHERE identification='" + client.getIdentification()+ "'";
         ResultSet resultSet = null;
+        ClientModel model = null;
         try {
             DataBaseQuery consulta = new DataBaseQuery();
             resultSet = consulta.ConsultData(sql);
             while (resultSet.next()) {
-                result = true;
+                model = new ClientModel(resultSet.getString("name"), resultSet.getString("surname"), resultSet.getString("identification"));
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error " + e);
+            System.err.println("Error: " + e);
         }
-        return result;
-    }  
+        return model;
+    } 
 }

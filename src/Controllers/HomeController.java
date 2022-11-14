@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  */
 public class HomeController implements ActionListener{
     
-    home view = home.getInstance();
+    public home view = home.getInstance();
 
     public HomeController() {
         start(view);
@@ -34,6 +34,7 @@ public class HomeController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == view.btnExit) {
+            System.out.println("exit " + e);
            System.exit(0);
         }
         if (e.getSource() == view.btnAddClient) {

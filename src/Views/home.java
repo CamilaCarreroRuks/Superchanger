@@ -72,6 +72,7 @@ public class home extends javax.swing.JFrame {
         btnAddClient.setText("Agregar Cliente");
         btnAddClient.setMaximumSize(new java.awt.Dimension(130, 30));
         btnAddClient.setMinimumSize(new java.awt.Dimension(130, 30));
+        btnAddClient.setName("btnAddClient"); // NOI18N
         btnAddClient.setPreferredSize(new java.awt.Dimension(130, 30));
 
         btnSearchClient.setBackground(new java.awt.Color(128, 169, 225));
@@ -80,6 +81,7 @@ public class home extends javax.swing.JFrame {
         btnSearchClient.setText("Buscar Cliente");
         btnSearchClient.setMaximumSize(new java.awt.Dimension(130, 30));
         btnSearchClient.setMinimumSize(new java.awt.Dimension(130, 30));
+        btnSearchClient.setName("btnSearchClient"); // NOI18N
         btnSearchClient.setPreferredSize(new java.awt.Dimension(130, 30));
 
         btnAddService.setBackground(new java.awt.Color(128, 169, 225));
@@ -88,16 +90,18 @@ public class home extends javax.swing.JFrame {
         btnAddService.setText("Registrar Servicio");
         btnAddService.setMaximumSize(new java.awt.Dimension(130, 30));
         btnAddService.setMinimumSize(new java.awt.Dimension(130, 30));
+        btnAddService.setName("btnAddService"); // NOI18N
         btnAddService.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        btnGenerateReport.setText("Generar Reporte");
         btnGenerateReport.setBackground(new java.awt.Color(128, 169, 225));
         btnGenerateReport.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnGenerateReport.setForeground(new java.awt.Color(0, 0, 0));
+        btnGenerateReport.setText("Generar Reporte");
+        btnGenerateReport.setToolTipText("");
         btnGenerateReport.setMaximumSize(new java.awt.Dimension(130, 30));
         btnGenerateReport.setMinimumSize(new java.awt.Dimension(130, 30));
+        btnGenerateReport.setName("btnGenerateReport"); // NOI18N
         btnGenerateReport.setPreferredSize(new java.awt.Dimension(130, 30));
-        btnGenerateReport.setToolTipText("");
 
         btnDiary.setBackground(new java.awt.Color(128, 169, 225));
         btnDiary.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -105,6 +109,7 @@ public class home extends javax.swing.JFrame {
         btnDiary.setText("Agenda");
         btnDiary.setMaximumSize(new java.awt.Dimension(130, 30));
         btnDiary.setMinimumSize(new java.awt.Dimension(130, 30));
+        btnDiary.setName("btnDiary"); // NOI18N
         btnDiary.setPreferredSize(new java.awt.Dimension(130, 30));
 
         jSeparator1.setBackground(new java.awt.Color(52, 68, 92));
@@ -182,6 +187,7 @@ public class home extends javax.swing.JFrame {
         btnExit.setBorderPainted(false);
         btnExit.setIconTextGap(3);
         btnExit.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnExit.setName("btnExit"); // NOI18N
         btnExit.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout toolbarLayout = new javax.swing.GroupLayout(toolbar);

@@ -47,6 +47,7 @@ public class formClient extends javax.swing.JPanel {
         setBackground(new java.awt.Color(128, 169, 225));
         setMaximumSize(new java.awt.Dimension(500, 450));
         setMinimumSize(new java.awt.Dimension(500, 450));
+        setName("formClient"); // NOI18N
 
         tittle.setFont(new java.awt.Font("Verdana", 3, 18)); // NOI18N
         tittle.setForeground(new java.awt.Color(0, 0, 0));
@@ -83,6 +84,7 @@ public class formClient extends javax.swing.JPanel {
         tfIdentification.setBackground(new java.awt.Color(255, 255, 255));
         tfIdentification.setForeground(new java.awt.Color(0, 0, 0));
         tfIdentification.setToolTipText("Nombre");
+        tfIdentification.setName("tfIdentification"); // NOI18N
 
         cbTypeIdentification.setBackground(new java.awt.Color(255, 255, 255));
         cbTypeIdentification.setForeground(new java.awt.Color(0, 0, 0));
@@ -121,6 +123,7 @@ public class formClient extends javax.swing.JPanel {
         tfBrandVehicle.setToolTipText("Nombre");
 
         btnAddClient.setText("Agregar");
+        btnAddClient.setName("btnAddClient"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

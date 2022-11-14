@@ -25,10 +25,10 @@ public class listClients extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         bModificar = new javax.swing.JButton();
-        bEliminar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         tittle = new javax.swing.JLabel();
         bAgregar = new javax.swing.JButton();
-        bBuscar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         tfBuscar = new javax.swing.JTextField();
         filtro = new javax.swing.JComboBox<>();
         jPanel = new javax.swing.JPanel();
@@ -50,13 +50,13 @@ public class listClients extends javax.swing.JPanel {
         bModificar.setMinimumSize(new java.awt.Dimension(90, 25));
         bModificar.setPreferredSize(new java.awt.Dimension(90, 25));
 
-        bEliminar.setText("Eliminar");
-        bEliminar.setFocusCycleRoot(true);
-        bEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bEliminar.setMaximumSize(new java.awt.Dimension(90, 25));
-        bEliminar.setMinimumSize(new java.awt.Dimension(90, 25));
-        bEliminar.setPreferredSize(new java.awt.Dimension(90, 25));
-        bEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setFocusCycleRoot(true);
+        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEliminar.setMaximumSize(new java.awt.Dimension(90, 25));
+        btnEliminar.setMinimumSize(new java.awt.Dimension(90, 25));
+        btnEliminar.setPreferredSize(new java.awt.Dimension(90, 25));
+        btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         tittle.setBackground(new java.awt.Color(128, 169, 225));
         tittle.setFont(new java.awt.Font("Verdana", 3, 18)); // NOI18N
@@ -74,12 +74,13 @@ public class listClients extends javax.swing.JPanel {
         bAgregar.setPreferredSize(new java.awt.Dimension(90, 25));
         bAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        bBuscar.setText("Buscar");
-        bBuscar.setFocusCycleRoot(true);
-        bBuscar.setHideActionText(true);
-        bBuscar.setMaximumSize(new java.awt.Dimension(85, 25));
-        bBuscar.setMinimumSize(new java.awt.Dimension(85, 25));
-        bBuscar.setPreferredSize(new java.awt.Dimension(85, 25));
+        btnBuscar.setText("Buscar");
+        btnBuscar.setFocusCycleRoot(true);
+        btnBuscar.setHideActionText(true);
+        btnBuscar.setMaximumSize(new java.awt.Dimension(85, 25));
+        btnBuscar.setMinimumSize(new java.awt.Dimension(85, 25));
+        btnBuscar.setName("btnBuscar"); // NOI18N
+        btnBuscar.setPreferredSize(new java.awt.Dimension(85, 25));
 
         tfBuscar.setBackground(new java.awt.Color(240, 240, 240));
         tfBuscar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -124,6 +125,7 @@ public class listClients extends javax.swing.JPanel {
         table.setToolTipText("");
         table.setFocusable(false);
         table.setGridColor(new java.awt.Color(240, 240, 240));
+        table.setName("table"); // NOI18N
         table.setRowHeight(25);
         table.setShowGrid(true);
         jScrollPane.setViewportView(table);
@@ -159,14 +161,14 @@ public class listClients extends javax.swing.JPanel {
                                 .addGap(36, 36, 36)
                                 .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41)
-                                .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(68, 68, 68)
                                 .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(23, 23, 23)
                                 .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
                 .addContainerGap())
@@ -180,13 +182,13 @@ public class listClients extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(bAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -195,15 +197,15 @@ public class listClients extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton bAgregar;
-    private javax.swing.JButton bBuscar;
-    public static javax.swing.JButton bEliminar;
     public javax.swing.JButton bModificar;
-    private javax.swing.JComboBox<String> filtro;
+    public javax.swing.JButton btnBuscar;
+    public static javax.swing.JButton btnEliminar;
+    public static javax.swing.JComboBox<String> filtro;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
-    public static javax.swing.JTable table;
-    private javax.swing.JTextField tfBuscar;
+    public javax.swing.JTable table;
+    public static javax.swing.JTextField tfBuscar;
     private javax.swing.JLabel tittle;
     // End of variables declaration//GEN-END:variables
 }

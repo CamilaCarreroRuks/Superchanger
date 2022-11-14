@@ -1,18 +1,36 @@
 package Models;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author Camila Carrero
  */
-public class DiaryModel {
+@Entity
+@Table (name = "diary")
+public class DiaryModel implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int id ;
+    @Column (length = 10)
     private int id_client;
+    @Column (length = 25)
     private String typeService;
+    @Column (length = 6)
     private Date date;
+    @Column (length = 5)
     private LocalTime hour;
+    @Column (length = 5)
     private boolean attendance;
 
     private static DiaryModel diary = null;
@@ -82,6 +100,10 @@ public class DiaryModel {
     public void setAttendance(boolean attendance) {
         this.attendance = attendance;
     }
-    
+
+    @Override
+    public String toString() {
+        return "DiaryModel{" + "id_client=" + id_client + ", typeService=" + typeService + ", date=" + date + ", hour=" + hour + ", attendance=" + attendance + '}';
+    }
     
 }

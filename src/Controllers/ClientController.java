@@ -2,19 +2,21 @@ package Controllers;
 
 import Models.ClientModel;
 import Models.DAO.ClientDAO;
+import Notifications.NotificationService;
 import Views.formClient;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Camila Carrero
  */
 public class ClientController implements ActionListener{
-    private formClient view = formClient.getInstance();
+    public formClient view = formClient.getInstance();
     private ClientModel model = ClientModel.getInstance();
-    private ClientDAO dao;
-
+    public ClientDAO dao = new ClientDAO();
     public ClientController() {
         start(view);
     };
@@ -34,14 +36,32 @@ public class ClientController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == view.btnAddClient) {
-           addClient();
+            try {
+                addClient();
+            } catch (Exception ex) {
+                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     };
     
-    private void addClient() {
-        model.setName(view.tfName.getText());
-        model.setSurname(view.tfSurname.getText());
-        model.setIdentification(Integer.parseInt(view.tfIdentification.getText()));
-        dao.addClient(model);
+    private void addClient() throws Exception {
+        if (validate() == true){
+            model.setName(view.tfName.getText());
+            model.setSurname(view.tfSurname.getText());
+            model.setIdentification(Integer.parseInt(view.tfIdentification.getText()));
+            dao.create(model);
+        } else {
+            NotificationService notification = new NotificationService("Debe completar todos los campos","alert");
+            throw new Exception("datos vacios");
+        }
+    };
+    
+    public boolean validate(){
+        if (!"".equals(view.tfName.getText()) && !"".equals(view.tfSurname.getText())
+                && !"".equals(view.tfIdentification.getText())){
+            return true;
+        } else {
+            return false;
+        }
     };
 }

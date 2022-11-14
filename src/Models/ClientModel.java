@@ -1,13 +1,30 @@
 package Models;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Camila Carrero
  */
-public class ClientModel {
+@Entity
+@Table (name = "clients")
+public class ClientModel implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
+    @Column (length = 25)
     private String name;
+    @Column (length = 25)
     private String surname;
+    @Column (length = 10)
     private int identification;
     
     private static ClientModel client = null;
@@ -28,8 +45,19 @@ public class ClientModel {
         this.surname = apellido;
     }
 
+    public ClientModel(String name, String surname, String identification) {
+        this.name = name;
+        this.surname = surname;
+        this.identification = Integer.parseInt(identification);
+    }
+
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientModel{" + "name=" + name + ", surname=" + surname + ", identification=" + identification + '}';
     }
 
     public void setId(int id) {

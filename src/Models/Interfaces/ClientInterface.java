@@ -1,6 +1,8 @@
 package Models.Interfaces;
 
+import Models.DAO.exceptions.NonexistentEntityException;
 import Models.ClientModel;
+import java.util.List;
 
 /**
  *
@@ -8,10 +10,9 @@ import Models.ClientModel;
  */
 public interface ClientInterface {
     
-    public boolean addClient(ClientModel client);
-    public ClientModel[] getAllClients();
-    public ClientModel getClient(int id);
-    public boolean updateClient(ClientModel client);
-    public boolean deleteClient(ClientModel client);
-    public boolean existsClient(ClientModel client);
+    public void create(ClientModel client);
+    public List<ClientModel> findClientModelEntities();
+    public ClientModel findClientModel(int id);
+    public void edit(ClientModel client) throws NonexistentEntityException, Exception;
+    public void destroy(int id) throws NonexistentEntityException;
 }

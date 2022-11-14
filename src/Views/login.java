@@ -41,6 +41,7 @@ public class login extends javax.swing.JFrame {
         tfName.setBackground(new java.awt.Color(255, 255, 255));
         tfName.setForeground(new java.awt.Color(0, 0, 0));
         tfName.setToolTipText("Usuario");
+        tfName.setName("tfName"); // NOI18N
 
         lName.setForeground(new java.awt.Color(255, 255, 255));
         lName.setText("Usuario");
@@ -52,10 +53,12 @@ public class login extends javax.swing.JFrame {
         lTittle.setForeground(new java.awt.Color(255, 255, 255));
         lTittle.setText("Supercharger S.R.L.");
         lTittle.setInheritsPopupMenu(false);
+        lTittle.setName(""); // NOI18N
 
         btnLogin.setBackground(new java.awt.Color(102, 102, 102));
         btnLogin.setForeground(new java.awt.Color(204, 204, 204));
         btnLogin.setText("Ingresar");
+        btnLogin.setName("btnLogin"); // NOI18N
 
         icon.setBackground(new java.awt.Color(45, 97, 168));
         icon.setBorder(null);
@@ -67,6 +70,7 @@ public class login extends javax.swing.JFrame {
         tfPassword.setBackground(new java.awt.Color(255, 255, 255));
         tfPassword.setForeground(new java.awt.Color(0, 0, 0));
         tfPassword.setToolTipText("");
+        tfPassword.setName("tfPassword"); // NOI18N
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);

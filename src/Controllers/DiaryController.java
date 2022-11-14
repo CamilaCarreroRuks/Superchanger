@@ -29,12 +29,13 @@ import java.util.Date;
  */
 public class DiaryController implements ActionListener, TimeChangeListener, CalendarListener{
 
-    private formDiary view = formDiary.getInstance();
+    public formDiary view = formDiary.getInstance();
     private DiaryModel model = DiaryModel.getInstance();
     private DiaryDAO dao = new DiaryDAO();
     private boolean timeChanged = false;
     private boolean calendarChanged = false;
     private static TurnStrategy strategy;
+    public ProofTurnController ptc;
 
     public DiaryController() {
         start(view);
@@ -70,12 +71,14 @@ public class DiaryController implements ActionListener, TimeChangeListener, Cale
                NotificationService notify = 
                        new NotificationService("Debe completar todos los campos", "alert");
            } else {
-                TurnController tc = new TurnController();
-                tc.show();
+                if (selectedTurnStrategy()){
+                    TurnController tc = new TurnController();
+                    tc.show();
+                }
            }
         }
         if (e.getSource() == view.btnGenerateProofTurn) {
-           ProofTurnController ptc = new ProofTurnController();
+           ptc = new ProofTurnController();
            ptc.show();
         }
     };
@@ -98,25 +101,29 @@ public class DiaryController implements ActionListener, TimeChangeListener, Cale
     public void yearMonthChanged(YearMonthChangeEvent ymce) {
      };
     
-    private void selectedTurnStrategy() {
-        model.setDate(Date.from(view.calendarPanel.getSelectedDate().atStartOfDay().atZone(ZoneId.systemDefault())
-        .toInstant()));
+    private Boolean selectedTurnStrategy() {
+        Boolean result = false;
+        model.setDate(Date.from(view.calendarPanel.getSelectedDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         model.setHour(view.time.getTime());
         if (dao.existsDiary(model)){
             strategy = new TurnTaken();
-            model = dao.getDiary(model.getId());
+            model = dao.findDiaryModel(model.getId());
             ClientModel client = ClientModel.getInstance();
             view.tfClient.setText(client.getName() + " " + client.getSurname());
             //view.tfVehicle.setText(client.getVehicle());
+            view.btnAddAssistance.setEnabled(true);
+            view.btnGenerateProofTurn.setEnabled(true);
         } else if (!verificationTurn(model) ) {
             strategy = new TurnDisable();
         } else {
             strategy = new TurnAvailable();
+            result = true;
         }
         strategy.responseTurn(view);
+        return result;
     };
     
-    private boolean verificationTurn(DiaryModel model) {
+    public boolean verificationTurn(DiaryModel model) {
         int day = dayofWeek(model.getDate());
         boolean hours = verificationHours(model.getHour());
         if (day != 7 && hours) {
@@ -126,7 +133,7 @@ public class DiaryController implements ActionListener, TimeChangeListener, Cale
         }
     };
     
-    private boolean verificationHours(LocalTime hours) {
+    public boolean verificationHours(LocalTime hours) {
         LocalTime start = LocalTime.of( 7 , 59 );
         LocalTime stop = LocalTime.of( 19 , 31 );
         if(hours.isAfter(start) && hours.isBefore(stop)){
@@ -136,7 +143,7 @@ public class DiaryController implements ActionListener, TimeChangeListener, Cale
         }
     };
     
-    private int dayofWeek(Date dat) {
+    public int dayofWeek(Date dat) {
         LocalDate localDate = Instant.ofEpochMilli(dat.getTime())
           .atZone(ZoneId.systemDefault())
           .toLocalDate();

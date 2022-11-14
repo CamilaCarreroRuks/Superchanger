@@ -65,6 +65,7 @@ public class formDiary extends javax.swing.JPanel {
         calendarPanel.setNextFocusableComponent(time);
 
         btnAddAssistance.setText("Registrar Asistencia");
+        btnAddAssistance.setName("btnAddAssistance"); // NOI18N
 
         lHour.setText("Hora");
         lHour.setForeground(new java.awt.Color(0, 0, 0));
@@ -84,6 +85,7 @@ public class formDiary extends javax.swing.JPanel {
         tfClient.setEditable(false);
         tfClient.setBackground(new java.awt.Color(255, 255, 255));
         tfClient.setForeground(new java.awt.Color(0, 0, 0));
+        tfClient.setName("tfClient"); // NOI18N
         tfClient.setToolTipText("Nombre");
 
         lClient.setText("Cliente");
@@ -92,6 +94,7 @@ public class formDiary extends javax.swing.JPanel {
         tfVehicle.setEditable(false);
         tfVehicle.setBackground(new java.awt.Color(255, 255, 255));
         tfVehicle.setForeground(new java.awt.Color(0, 0, 0));
+        tfVehicle.setName("tfVehicle"); // NOI18N
         tfVehicle.setToolTipText("Nombre");
 
         lVehicle.setText("Vehiculo");
@@ -146,6 +149,7 @@ public class formDiary extends javax.swing.JPanel {
         );
 
         btnGenerateProofTurn.setText("Generar Comprobante");
+        btnGenerateProofTurn.setName("btnGenerateProofTurn"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

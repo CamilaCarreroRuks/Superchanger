@@ -1,6 +1,8 @@
 package Models.Interfaces;
 
+import Models.DAO.exceptions.NonexistentEntityException;
 import Models.ServiceModel;
+import java.util.List;
 
 /**
  *
@@ -8,10 +10,9 @@ import Models.ServiceModel;
  */
 public interface ServiceInterface {
     
-    public boolean addService(ServiceModel service);
-    public ServiceModel[] getAllServces();
-    public ServiceModel getService(int id);
-    public boolean updateService(ServiceModel service);
-    public boolean deleteService(ServiceModel service);
-    public boolean existsService(ServiceModel service);
+    public void create(ServiceModel service);
+    public List<ServiceModel> findServiceModelEntities();
+    public ServiceModel findServiceModel(int id);
+    public void edit(ServiceModel service) throws NonexistentEntityException, Exception;
+    public void destroy(int id) throws NonexistentEntityException;
 }

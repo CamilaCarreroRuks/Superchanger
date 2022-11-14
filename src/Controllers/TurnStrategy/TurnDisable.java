@@ -12,7 +12,6 @@ public class TurnDisable implements TurnStrategy{
 
     @Override
     public void responseTurn(formDiary view) {
-        view.btnAddTurn.setEnabled(false);
         NotificationService notification = new NotificationService("La fecha y/u hora seleccionada no está habilitada","negative");
     }  
 }
